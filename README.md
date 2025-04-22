@@ -1,4 +1,4 @@
-<h1 style="text-align: center">MaikOnline ✨</h1>
+<h1 align="center">MaikOnline ✨</h1>
 
 # ¿Qué es MaikOnline?
 
@@ -32,6 +32,9 @@ La sección de **Tienda** presenta una lista de productos junto con sus respecti
     <img height="120" src="./screenshots/home.png" alt="Home Screenshot">
     <img height="120" src="./screenshots/about.png" alt="About Screenshot">
     <img height="120" src="./screenshots/shop.png" alt="Shop Screenshot">
+</p>
+
+<p align="center">
     <i>Capturas de pestañas disponibles en la aplicación.</i>
 </p>
 
