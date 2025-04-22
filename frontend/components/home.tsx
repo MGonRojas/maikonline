@@ -26,7 +26,7 @@ export default function Home() {
                     <br />
                     <strong>
                         <a href="https://github.com/MGonRojas/maikonline">
-                            ✍️ Revisa el codigo en GitHub
+                            ✍️ Revisa el codigo en GitHub.
                         </a>
                     </strong>
                 </p>
