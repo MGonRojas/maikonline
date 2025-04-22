@@ -8,6 +8,27 @@
     text-align: center;
 }
 
+textarea {
+    padding: 10px;
+    margin: 5px;
+
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgb(134, 127, 143);
+
+    border-radius: 30px;
+    border-width: 0px;
+
+    color: white;
+    resize: none;
+}
+
+textarea::placeholder {
+    color: rgb(209, 209, 209);
+    font-family: "gg sans Normal", sans-serif;
+    text-align: center;
+    font-size: 14px;
+}
+
 body {
     padding: 25px;
     background-color: rgb(43, 41, 46);
@@ -29,7 +50,7 @@ body {
 
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
     background-color: rgb(99, 95, 105);
-    
+
     border-radius: 30px;
     border-width: 0px;
 
@@ -38,8 +59,9 @@ body {
 }
 
 .item-image {
-    width: 10vh;
+    width: 20vh;
     height: auto;
+    margin: 0px 10px 0px 10px;
     border-radius: 30px;
 }
 
@@ -49,6 +71,7 @@ body {
 }
 
 .item-description {
+    font-size: 20px;
     font-family: "gg sans Normal", sans-serif;
     color: white;
 }
@@ -75,7 +98,13 @@ body {
 
     color: white;
 
-    height: 65vh;
+    height: 70vh;
+}
+
+.profile-picture {
+    width: 20vh;
+    margin: 0px 10px 0px 10px;
+    border-radius: 100%;
 }
 
 button {
@@ -88,4 +117,22 @@ button {
 
     padding: 20px 20px;
     margin: 20px 20px 0px 20px;
+}
+
+button:hover {
+    background-color: rgb(56, 90, 192);
+}
+
+.rounded-button {
+    border-radius: 20px 20px 20px 20px;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #92b8ff;
+    text-decoration: none;
 }

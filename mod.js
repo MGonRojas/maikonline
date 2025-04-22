@@ -4,7 +4,6 @@ import { Server } from "./backend/server.js";
 import { isFile } from "./backend/is-file.js";
 
 import API_shopItems from "./backend/api/shop-items.js";
-import API_ping from "./backend/api/ping.js";
 
 console.log("Transpiling source code...");
 
@@ -18,9 +17,7 @@ const env = dotenv.config({ path: "./.env" }).parsed ?? {};
 const server = new Server(env);
 
 console.log("Registiring APIs...");
-
 server.api("shop-items", API_shopItems);
-server.api("ping", API_ping);
 
 server.on("ready", ({ url }) => {
     console.log(`Listening on \x1b[33m${url.href}\x1b[0m`);
@@ -62,7 +59,7 @@ server.on("request", async (req, res) => {
     if (codemap.has(filepath)) {
         contents = codemap.get(filepath);
     } else {
-        contents = await fsp.readFile(filepath, "utf-8");
+        contents = await fsp.readFile(filepath);
     }
 
     const mimetype = mime.lookup(ext) ?? "application/octet-stream";

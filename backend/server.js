@@ -21,7 +21,9 @@ export class Server extends EventEmitter {
                 return;
             }
 
-            const api = req.url.slice(5);
+            const routes = req.url.slice(5).split("/");
+            const api = routes.shift();
+            const subsection = routes.join("/");
 
             if (!this.apis.has(api)) {
                 res.writeHead(404, { "Content-Type": "application/json" });
@@ -35,7 +37,14 @@ export class Server extends EventEmitter {
             }
 
             if (req.method !== "POST") {
-                this.apis.get(api)(null, req, res);
+                const response = this.apis.get(api)(subsection, null, req, res);
+                const responseBody = JSON.stringify(response.body);
+
+                res.writeHead(response.status, {
+                    "Content-Type": "application/json",
+                });
+                res.end(responseBody);
+
                 return;
             }
 
@@ -50,11 +59,18 @@ export class Server extends EventEmitter {
 
                 try {
                     const json = JSON.parse(body);
-                    const responseBody = JSON.stringify(
-                        this.apis.get(api)(json, req, res),
-                    );
 
-                    res.writeHead(200, { "Content-Type": "application/json" });
+                    const response = this.apis.get(api)(
+                        subsection,
+                        json,
+                        req,
+                        res,
+                    );
+                    const responseBody = JSON.stringify(response.body);
+
+                    res.writeHead(response.status, {
+                        "Content-Type": "application/json",
+                    });
                     res.end(responseBody);
                 } catch {
                     res.writeHead(400, { "Content-Type": "application/json" });

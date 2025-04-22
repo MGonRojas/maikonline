@@ -18,15 +18,15 @@ export default function App() {
     return (
         <>
             <button type="button" onClick={() => setSection(Section.Home)}>
-                Principal
+                🏠 Principal
             </button>
 
             <button type="button" onClick={() => setSection(Section.About)}>
-                Acerca de
+                📚 Acerca de
             </button>
 
             <button type="button" onClick={() => setSection(Section.Shop)}>
-                Tienda
+                🛒 Tienda
             </button>
 
             <div className="container-page">

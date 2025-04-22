@@ -1,17 +1,22 @@
 /// <reference lib="dom" />
 
-export async function api(name: string, body: unknown = null) {
+export async function api(
+    route: string,
+    method: "GET" | "POST" | "DELETE",
+    body: unknown = null,
+) {
     try {
-        const res = await fetch(`/api/${name}`, {
-            method: body === null ? "POST" : "GET",
-            body: JSON.stringify(body),
+        const res = await fetch(`/api/${route}`, {
+            method: method,
+            body: body === null ? undefined : JSON.stringify(body),
             headers: {
                 "Content-Type": "application/json",
             },
         });
 
         return await res.json();
-    } catch {
+    } catch (err) {
+        console.error(err);
         return null;
     }
 }

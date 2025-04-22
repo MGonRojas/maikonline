@@ -1,68 +1,72 @@
 import { fs, path } from "../../deps.js";
 
-export default function shopItems(data) {
+export default function shopItems(id, data, req, _res) {
     // We use sync operations to not read/write the file multiple times
     // at the same time.
     const database = path.resolve("./backend/api/shop-items.json");
     const json = JSON.parse(fs.readFileSync(database, "utf-8"));
 
-    if (!data) {
-        return json;
+    const isList = id === "list";
+    id = parseInt(id);
+
+    if (!isList && !Number.isSafeInteger(id)) {
+        return { status: 400, body: { error: "Invalid ID" } };
     }
 
-    if (data === null || typeof data !== "object") {
-        return { error: "Invalid data" };
-    }
+    let index = json.items.findIndex((item) => item.id === id);
 
-    switch (data.action) {
-        case "set": {
+    switch (req.method) {
+        case "GET": {
+            if (isList) {
+                return { status: 200, body: json.items.map((item) => item.id) };
+            }
+
+            if (index === -1) {
+                return { status: 404, body: { error: "Item not found" } };
+            }
+
+            return { status: 200, body: json.items[index] };
+        }
+
+        case "DELETE": {
+            if (index === -1) {
+                return { status: 404, body: { error: "Item not found" } };
+            }
+
+            json.items.splice(index, 1);
+            fs.writeFileSync(database, JSON.stringify(json, null, 4), "utf-8");
+
+            return { status: 200, body: { message: "Item deleted" } };
+        }
+
+        case "POST": {
+            if (index === -1) {
+                index = json.items.length;
+            }
+
             if (
-                typeof data.id !== "number" ||
                 typeof data.name !== "string" ||
                 typeof data.description !== "string" ||
                 typeof data.price !== "number" ||
                 typeof data.imageUrl !== "string"
             ) {
-                return { error: "Invalid data" };
+                return { status: 400, body: { error: "Invalid data" } };
             }
 
-            const index = json.items.findIndex((item) => item.id === data.id);
-
-            if (index > -1) {
-                json.items.splice(index, 1);
-            }
-
-            json.items.push({
-                id: data.id,
+            json.items.splice(index, 1, {
+                id: id,
                 name: data.name,
                 description: data.description,
                 price: data.price,
                 imageUrl: data.imageUrl,
             });
 
-            break;
+            fs.writeFileSync(database, JSON.stringify(json, null, 4), "utf-8");
+            return { status: 200, body: json.items[index] };
         }
 
-        case "del": {
-            if (typeof data.id !== "number") {
-                return { error: "Invalid data" };
-            }
-
-            const index = json.items.findIndex((item) => item.id === data.id);
-
-            if (index > -1) {
-                json.items.splice(index, 1);
-            } else {
-                return { error: "Item not found" };
-            }
-
-            break;
+        default: {
+            return { status: 405, body: { error: "Method not allowed" } };
         }
-
-        default:
-            return { error: "Invalid data" };
     }
-
-    fs.writeFileSync(database, JSON.stringify(json, null, 4), "utf-8");
-    return { success: true };
 }
