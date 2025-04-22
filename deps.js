@@ -1,3 +1,4 @@
+export { default as child_process } from "node:child_process";
 export { default as EventEmitter } from "node:events";
 export { default as buffer } from "node:buffer";
 export { default as http } from "node:http";

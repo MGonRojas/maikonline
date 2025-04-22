@@ -1,5 +1,6 @@
 import { dotenv, fsp, mime, path } from "./deps.js";
 import { transpile } from "./backend/transpile.js";
+import { openPage } from "./backend/open-page.js";
 import { Server } from "./backend/server.js";
 import { isFile } from "./backend/is-file.js";
 
@@ -19,8 +20,9 @@ const server = new Server(env);
 console.log("Registiring APIs...");
 server.api("shop-items", API_shopItems);
 
-server.on("ready", ({ url }) => {
+server.on("ready", async ({ url }) => {
     console.log(`Listening on \x1b[33m${url.href}\x1b[0m`);
+    await openPage(url);
 });
 
 server.on("request", async (req, res) => {
