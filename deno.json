@@ -1,0 +1,21 @@
+{
+    "__comment__": "This is a Deno configuration file with the single purpose of allowing the Deno server used for VSCode to work properly with React files.",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "jsxImportSource": "react",
+        "jsxImportSourceTypes": "@types/react"
+    },
+    "imports": {
+        "react": "npm:react",
+        "react-dom": "npm:react-dom",
+        "@types/react": "npm:@types/react"
+    },
+    "fmt": {
+        "indentWidth": 4,
+        "useTabs": false,
+        "exclude": [
+            "node_modules",
+            "README.md"
+        ]
+    }
+}

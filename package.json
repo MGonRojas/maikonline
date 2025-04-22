@@ -1,0 +1,18 @@
+{
+    "name": "maikonline",
+    "version": "0.0.1",
+    "description": "MaikOnline is an application that combines both backend and frontend development to create a web application using React and TypeScript",
+    "type": "module",
+    "main": "mod.js",
+    "scripts": {
+        "start": "node mod.js"
+    },
+    "dependencies": {
+        "@types/react": "^19.1.2",
+        "dotenv": "^16.5.0",
+        "mime-types": "^3.0.1",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "typescript": "^5.8.3"
+    }
+}
